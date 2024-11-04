@@ -34,6 +34,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 //ESTA ES LA VISTA DEL LOGIN
 
 @Composable
+//SE CREA LA FUNCION Y SE PASAN LOS PARAMETROS NECESARIOS DE LOS VIEWMODEL
 fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -82,10 +83,11 @@ fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
             value = password,
             onValueChange = {password = it},
             label = { Text(text = "Password")},
+            //SE OCULTA LA CONTRASEÑA
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
-
+        //ESPACIADO ENTRE ELEMENTOS
         Spacer(modifier = Modifier.height(20.dp))
 
         //BOTON DE LOGIN

@@ -16,6 +16,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ui.theme.MyBussinesSyncKotlinJCThe
 
 class MainActivity : ComponentActivity() {
 
+    //SE CREAN LOS VIEWMODELS Y SE ASIGNAN A VARIABLES
     val loginVM : LoginViewModel by viewModels()
     val registerVM : RegisterViewModel by viewModels()
     val notasVM : NotasViewModel by viewModels()
@@ -26,6 +27,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyBussinesSyncKotlinJCTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
+                    //SE LLAMA A LA FUNCION DE LA NAVEGACION DONDE TENEMOS LOS TRES COMPONENTES
+                    //PRINCIPALES DE NUESTRA APLICACIÓN
                     NavManager(loginVM , registerVM  , notasVM  )
 
                 }

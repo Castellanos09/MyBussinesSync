@@ -12,6 +12,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.Views.Register.RegisterView
 
 @Composable
 fun NavManager(
+    //SE RECIBEN LOS VIEWMODELS EXTRAIDOS DE MAINACTIVITY
     loginVM: LoginViewModel,
     registerVM : RegisterViewModel,
     notasVM : NotasViewModel,
@@ -19,7 +20,10 @@ fun NavManager(
 ){
     val NavController = rememberNavController()
 
+    //DEFINE LA VISTA POR DEFAULT, EN ESTE CASO ES LA INTERFAZ DE LOGIN
     NavHost(navController = NavController, startDestination = "Login"){
+
+        //SE DEFINEN RUTAS DE LA APLICACIÓN
         composable("Login"){
             LoginView(NavController, loginVM)
         }
