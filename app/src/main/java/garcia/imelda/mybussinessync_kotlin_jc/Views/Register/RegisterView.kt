@@ -1,7 +1,5 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.Register
 
-
-import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -101,7 +99,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
 
         Button(
             onClick = {
-                registerVM.createUser(username, email, password){
+                registerVM.createUser(username, email, password) {
                     NavController.navigate("Home")
 
                 }
