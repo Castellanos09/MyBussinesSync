@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,7 +40,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
 
     Column (
        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = androidx.compose.ui.Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
 
     ) {
         var username by remember { mutableStateOf("") } //USERNAME
@@ -49,7 +50,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
 
         //TEXTO DE REGISTRO
         Text(
-            modifier = androidx.compose.ui.Modifier.padding(top = 10.dp),
+            modifier = Modifier.padding(top = 10.dp),
             text = "Registro de usuario",
             fontWeight = FontWeight.Bold,
             color = Color.Black,
@@ -58,7 +59,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
 
         //ICONO DE REGISTRO
         Image(
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .padding(top = 10.dp)
                 .height(150.dp)
                 .width(150.dp),
@@ -71,7 +72,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
             value = username,
             onValueChange = { username = it },
             label = { Text(text = "Username")},
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .padding(start = 30.dp, end = 30.dp)
                 .fillMaxWidth())
 
@@ -80,7 +81,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
             value = email,
             onValueChange = { email = it },
             label = { Text(text = "Email")},
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .padding(start = 30.dp, end = 30.dp)
                 .fillMaxWidth())
 
@@ -91,7 +92,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
             label = { Text(text = "Password")},
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .padding(start = 30.dp, end = 30.dp)
                 .fillMaxWidth())
 
@@ -105,7 +106,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
 
                 }
             },
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)) {
             Text(text = "Ingresar")
