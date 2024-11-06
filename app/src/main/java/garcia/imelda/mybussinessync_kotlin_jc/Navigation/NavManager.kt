@@ -8,6 +8,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.RegisterViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.LoginView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.Notas.HomeView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Register.RegisterView
 
 @Composable
@@ -30,5 +31,10 @@ fun NavManager(
         composable("Register"){
             RegisterView(NavController, registerVM)
         }
+
+        composable("Home"){
+            HomeView(NavController, notasVM)
+        }
+
     }
 }

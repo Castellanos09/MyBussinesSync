@@ -101,7 +101,12 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
         Spacer(modifier = androidx.compose.ui.Modifier.height(20.dp))
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                registerVM.createUser(username, email, password){
+                    NavController.navigate("Home")
+
+                }
+            },
             modifier = androidx.compose.ui.Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp)) {
