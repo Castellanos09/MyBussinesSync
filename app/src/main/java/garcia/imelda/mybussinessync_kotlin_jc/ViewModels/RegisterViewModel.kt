@@ -18,7 +18,8 @@ private val auth : FirebaseAuth = Firebase.auth
     fun createUser(username : String, email : String, password : String, onSuccess : () -> Unit) {
         viewModelScope.launch {
             try {
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         saveUser(username)
                         onSuccess()
@@ -41,11 +42,11 @@ private val auth : FirebaseAuth = Firebase.auth
         viewModelScope.launch (Dispatchers.IO){
             val user = UserModel(
                 userId = id.toString(),
-                username = username,
-                email = email.toString()
+                email = email.toString(),
+                username = username
             )
 
-            FirebaseFirestore.getInstance().collection("users")
+            FirebaseFirestore.getInstance().collection("Users")
                 .add(user)
                 .addOnSuccessListener {
                     Log.d("success", "Usuario registrado correctamente")
