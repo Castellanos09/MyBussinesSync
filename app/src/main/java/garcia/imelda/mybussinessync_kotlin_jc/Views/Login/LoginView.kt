@@ -91,7 +91,11 @@ fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
 
         //BOTON DE LOGIN
        Button(
-           onClick = { /*TODO*/ },
+           onClick = {
+               loginVM.login(email, password) {
+                   NavController.navigate("Home")
+               }
+           },
            modifier = Modifier
                .fillMaxWidth()
                .padding(start = 20.dp, end = 20.dp)) {
@@ -102,6 +106,7 @@ fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
         Button(
             onClick = {
                 NavController.navigate("Register")
+
             },
             modifier = Modifier
                 .fillMaxWidth()
