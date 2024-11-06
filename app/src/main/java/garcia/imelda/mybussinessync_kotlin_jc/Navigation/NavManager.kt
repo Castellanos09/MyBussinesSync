@@ -8,6 +8,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.RegisterViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.LoginView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.checkSesion
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Notas.HomeView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Register.RegisterView
 
@@ -22,7 +23,10 @@ fun NavManager(
     val NavController = rememberNavController()
 
     //DEFINE LA VISTA POR DEFAULT, EN ESTE CASO ES LA INTERFAZ DE LOGIN
-    NavHost(navController = NavController, startDestination = "Login"){
+    NavHost(navController = NavController, startDestination = "checkSesion"){
+        composable("CheckSesion"){
+            checkSesion(NavController)
+        }
 
         //SE DEFINEN RUTAS DE LA APLICACIÓN
         composable("Login"){
