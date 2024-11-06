@@ -1,7 +1,6 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.Login
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,7 +58,7 @@ fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
                 .height(150.dp)
                 .width(150.dp)
                 .padding(15.dp),
-            painter = painterResource(id = R.drawable.logotipo_MyBS),
+            painter = painterResource(id = R.drawable.logotipo_mybs),
             contentDescription = "IconoLogin"
         )
 
