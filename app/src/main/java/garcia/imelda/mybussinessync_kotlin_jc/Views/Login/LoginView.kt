@@ -59,7 +59,7 @@ fun LoginView(navController: NavController, loginVM: LoginViewModel) {
                 .height(150.dp)
                 .width(150.dp)
                 .padding(15.dp),
-            painter = painterResource(id = R.drawable.logotipo_mybs),
+            painter = painterResource(id = R.drawable.logotipo_proyecto),
             contentDescription = "IconoLogin"
         )
 
