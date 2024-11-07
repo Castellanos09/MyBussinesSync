@@ -53,7 +53,7 @@ fun LoginView(navController: NavController, loginVM: LoginViewModel) {
             color = Color.Black,
             fontSize = 20.sp)
 
-        //ICONO LOGIN
+        //ICONO LOGINx|
         Image(
             modifier = Modifier
                 .height(150.dp)
