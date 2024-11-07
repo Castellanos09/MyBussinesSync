@@ -17,7 +17,7 @@ fun NavManager(
     //SE RECIBEN LOS VIEWMODELS EXTRAIDOS DE MAINACTIVITY
     loginVM: LoginViewModel,
     registerVM : RegisterViewModel,
-    notasVM : NotasViewModel,
+    notasVM : NotasViewModel
 
 ){
     val NavController = rememberNavController()

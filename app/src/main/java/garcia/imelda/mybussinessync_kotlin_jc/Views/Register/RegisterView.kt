@@ -26,14 +26,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import garcia.imelda.mybussinessync_kotlin_jc.R
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.RegisterViewModel
 
 
 @Composable
 //SE CREA LA FUNCION Y SE PASAN LOS PARAMETROS NECESARIOS DE LOS VIEWMODEL
-fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel) {
+fun RegisterView(navController: NavController, registerVM: RegisterViewModel) {
 
 
     Column (
@@ -100,7 +100,7 @@ fun RegisterView(NavController: NavHostController, registerVM: RegisterViewModel
         Button(
             onClick = {
                 registerVM.createUser(username, email, password) {
-                    NavController.navigate("Home")
+                    navController.navigate("Home")
 
                 }
             },

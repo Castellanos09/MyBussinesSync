@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel(){
 
-private val auth : FirebaseAuth = Firebase.auth
+    private val auth : FirebaseAuth = Firebase.auth
 
     fun login(email: String, password: String, onSuccess: () -> Unit) {
         viewModelScope.launch {

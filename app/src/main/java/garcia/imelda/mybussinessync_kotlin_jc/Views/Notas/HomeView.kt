@@ -13,19 +13,20 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(NavController: NavHostController, notasVM: NotasViewModel) {
+fun HomeView(navController: NavController, notasVM: NotasViewModel) {
     Scaffold (
         topBar = {
             TopAppBar(title = { Text(text = "Inicio")},
                 actions = {
                         IconButton(onClick = {
                             notasVM.logout()
-                            NavController.popBackStack()
+                            navController.popBackStack()
                         }) {
                             Icon(
                                 imageVector =   Icons.AutoMirrored.Filled.ExitToApp,

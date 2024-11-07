@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import garcia.imelda.mybussinessync_kotlin_jc.R
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
@@ -34,7 +35,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 
 @Composable
 //SE CREA LA FUNCION Y SE PASAN LOS PARAMETROS NECESARIOS DE LOS VIEWMODEL
-fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
+fun LoginView(navController: NavController, loginVM: LoginViewModel) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -93,7 +94,7 @@ fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
        Button(
            onClick = {
                loginVM.login(email, password) {
-                   NavController.navigate("Home")
+                   navController.navigate("Home")
                }
            },
            modifier = Modifier
@@ -105,7 +106,7 @@ fun LoginView(NavController: NavHostController, loginVM: LoginViewModel) {
         //BOTON DE REGISTRO
         Button(
             onClick = {
-                NavController.navigate("Register")
+                navController.navigate("Register")
 
             },
             modifier = Modifier
