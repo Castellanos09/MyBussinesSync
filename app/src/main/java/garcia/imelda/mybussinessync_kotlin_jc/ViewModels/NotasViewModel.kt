@@ -8,7 +8,7 @@ import com.google.firebase.auth.auth
 class NotasViewModel : ViewModel(){
     private val auth : FirebaseAuth = Firebase.auth
 
-    fun logout() {
+    fun singOut() {
         auth.signOut() //CERRAR SESIÓN
     }
 

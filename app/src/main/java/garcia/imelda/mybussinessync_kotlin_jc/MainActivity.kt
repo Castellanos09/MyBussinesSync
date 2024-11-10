@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
@@ -12,6 +13,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.RegisterViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.LoginView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.TabsView
 import garcia.imelda.mybussinessync_kotlin_jc.ui.theme.MyBussinesSyncKotlinJCTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,11 +28,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyBussinesSyncKotlinJCTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    //SE LLAMA A LA FUNCION DE LA NAVEGACION DONDE TENEMOS LOS TRES COMPONENTES
-                    //PRINCIPALES DE NUESTRA APLICACIÓN
-                    NavManager(loginVM , registerVM  , notasVM  )
-
+                Surface(modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                    ) {
+                    NavManager(loginVM, notasVM)
                 }
             }
         }

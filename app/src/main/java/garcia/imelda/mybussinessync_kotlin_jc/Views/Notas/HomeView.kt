@@ -25,7 +25,7 @@ fun HomeView(navController: NavController, notasVM: NotasViewModel) {
             TopAppBar(title = { Text(text = "Inicio")},
                 actions = {
                         IconButton(onClick = {
-                            notasVM.logout()
+                            notasVM.singOut()
                             navController.popBackStack()
                         }) {
                             Icon(

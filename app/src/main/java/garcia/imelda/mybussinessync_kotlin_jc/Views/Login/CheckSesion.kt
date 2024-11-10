@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun checkSesion (navController : NavController){
+fun checkSesion(navController : NavController){
     LaunchedEffect(Unit) {
         if (!FirebaseAuth.getInstance().currentUser?.email.isNullOrEmpty()){
             navController.navigate("Home")
