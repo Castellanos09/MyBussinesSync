@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "221452119153",
-    "project_id": "mybussinessync-jc",
-    "storage_bucket": "mybussinessync-jc.firebasestorage.app"
+    "project_number": "820163356733",
+    "project_id": "my-bussines-sync",
+    "storage_bucket": "my-bussines-sync.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:221452119153:android:694bf3f655b0930242bfd0",
+        "mobilesdk_app_id": "1:820163356733:android:d64d8b9ae5a0854489e254",
         "android_client_info": {
           "package_name": "garcia.imelda.mybussinessync_kotlin_jc"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCQVPFOCxozTowNeJN0O5k3qBQI6Iue-JQ"
+          "current_key": "AIzaSyBIUW6ygr5bQc91mKHwmwN344jCjW_IslI"
         }
       ],
       "services": {
