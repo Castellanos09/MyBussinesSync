@@ -7,14 +7,18 @@ import androidx.navigation.compose.rememberNavController
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.RegisterViewModel
+import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.LoginView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.TabsView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.checkSesion
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Notas.HomeView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Register.RegisterView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.AddServicioView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.AllServicesView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.HomeServicios
 
 @Composable
-fun NavManager(loginVM: LoginViewModel, notasVM: NotasViewModel){
+fun NavManager(loginVM: LoginViewModel, serviciosVM: ServiciosViewModel){
     val  navController = rememberNavController()
     NavHost(navController = navController, startDestination = "checkSesion"){
         composable("checkSesion"){
@@ -24,7 +28,13 @@ fun NavManager(loginVM: LoginViewModel, notasVM: NotasViewModel){
             TabsView(navController, loginVM)
         }
         composable("Home"){
-            HomeView(navController, notasVM)
+            HomeServicios(navController, serviciosVM)
+        }
+        composable( "AddServicio"){
+            AddServicioView(navController, serviciosVM)
+         }
+        composable("AllServices"){
+            AllServicesView(navController, serviciosVM)
         }
     }
 }
