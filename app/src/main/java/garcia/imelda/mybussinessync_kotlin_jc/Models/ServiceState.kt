@@ -11,6 +11,8 @@ data class ServiceState(
     val abonos: List<Abono> = emptyList()   // Lista de abonos
 
 ){
+
+
     // Modelo para un adeudo
     data class Adeudo(
         val descripcion: String = "",
