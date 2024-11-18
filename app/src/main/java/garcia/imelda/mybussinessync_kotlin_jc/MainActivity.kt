@@ -10,8 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
-import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
-import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.RegisterViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.LoginView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.TabsView
@@ -21,7 +19,6 @@ class MainActivity : ComponentActivity() {
 
     //SE CREAN LOS VIEWMODELS Y SE ASIGNAN A VARIABLES
     val loginVM : LoginViewModel by viewModels()
-    val registerVM : RegisterViewModel by viewModels()
     //val notasVM : NotasViewModel by viewModels()
     val serviciosVM : ServiciosViewModel by viewModels()
 

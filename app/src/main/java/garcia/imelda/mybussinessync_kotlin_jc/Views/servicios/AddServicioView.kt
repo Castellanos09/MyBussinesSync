@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -32,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -91,7 +93,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                 label = { Text(text = "Nombre del cliente")},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp))
+                    .padding(10.dp))
 
 //INGRESAR UNA DESCRIPCIÓN
             OutlinedTextField(
@@ -100,7 +102,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                 label = { Text(text = "Contacto del cliente")},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp))
+                    .padding(10.dp))
 
 
             OutlinedTextField(
@@ -109,7 +111,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                 label = { Text(text = "Marca del vehiculo")},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp))
+                    .padding(10.dp))
 
             OutlinedTextField(
                 value = color,
@@ -117,7 +119,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                 label = { Text(text = "Color del vehiculo")},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp))
+                    .padding(10.dp))
 
             OutlinedTextField(
                 value = servicio,
@@ -125,16 +127,17 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                 label = { Text(text = "Descripción del servicio")},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp))
+                    .padding(10.dp))
 
 
             OutlinedTextField(
                 value = presupuesto,
                 onValueChange = {presupuesto = it},
                 label = { Text(text = "Presupuesto estimado")},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), // Teclado específico para decimal
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp))
+                    .padding(10.dp))
 
 
 
@@ -155,14 +158,10 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     disabledContainerColor = colorResource(id = R.color.azulBajito),
                     disabledContentColor = Color.White
                 )
-
             ) {
-                Text(text = "Agregar nota")
+                Text(text = "Agregar servicio")
             }
-
-
         }
     }
-
 }
 
