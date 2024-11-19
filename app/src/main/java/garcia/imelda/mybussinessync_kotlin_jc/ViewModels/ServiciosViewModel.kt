@@ -1,6 +1,7 @@
 package garcia.imelda.mybussinessync_kotlin_jc.ViewModels
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,6 +13,8 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ServiciosViewModel: ViewModel() {
@@ -21,8 +24,8 @@ class ServiciosViewModel: ViewModel() {
     private val firestore = Firebase.firestore
 
     //RECUPERA LOS DATOS DEL MODELO "SERVICESTATE"
-    private val _serviceData = mutableStateOf<List<ServiceState>>(emptyList())
-    val serviceData: List<ServiceState> = _serviceData.value
+    private val _serviceData = MutableStateFlow<List<ServiceState>>(emptyList())
+    val servicesData: StateFlow<List<ServiceState>> = _serviceData
 
     // Colocar los valores en el form para editar
     // fun onValue(value: String, text: String, valueNumber: Number){
@@ -83,7 +86,7 @@ class ServiciosViewModel: ViewModel() {
                     if (querySnapshot != null) {
                         for (listaServicio in querySnapshot) {
                             //Sacar los campos de FireStore y los documentos
-                            val service = listaServicio.toObject(ServiceState::class.java).copy(idlist = listaServicio.id)
+                            val service = listaServicio.toObject(ServiceState::class.java).copy(idDoc = listaServicio.id)
                             listaServicios.add(service)
 
                         }

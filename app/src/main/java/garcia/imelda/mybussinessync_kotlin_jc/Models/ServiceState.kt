@@ -1,7 +1,6 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Models
 
 data class ServiceState(
-    val idlist: String = "",
     val cliente: String = "",
     val color: String = "",
     val numero: String = "",
@@ -10,8 +9,8 @@ data class ServiceState(
     val vehiculo: String = "",
     val estado: String = "Pendiente",
     val adeudos: List<Adeudo> = emptyList(), // Lista de adeudos
-    val abonos: List<Abono> = emptyList()   // Lista de abonos
-
+    val abonos: List<Abono> = emptyList(),   // Lista de abonos
+    val idDoc: String = ""
 ){
 
 

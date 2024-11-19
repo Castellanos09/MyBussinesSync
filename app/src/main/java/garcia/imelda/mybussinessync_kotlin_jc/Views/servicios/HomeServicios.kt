@@ -19,6 +19,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +36,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel) {
-    
+
    LaunchedEffect(Unit) {
       serviciosVM.getServices()
    }
@@ -63,8 +65,7 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-            val servicio = serviciosVM.serviceData
-
+            val servicio by serviciosVM.servicesData.collectAsState()
             LazyColumn {
                 items(servicio){ item ->
                     Text(text = item.cliente)
