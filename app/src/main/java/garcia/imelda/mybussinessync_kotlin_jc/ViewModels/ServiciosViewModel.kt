@@ -44,22 +44,46 @@ class ServiciosViewModel: ViewModel() {
         presupuesto: Number,
         servicio: String,
         vehiculo: String,
+        estado: String,
         onSuccess: () -> Unit
-    ) {  }
+    ) { val email = auth.currentUser?.email
+        viewModelScope.launch(Dispatchers.IO){
+            try{
+                val newService = hashMapOf(
+                    "cliente" to cliente,
+                    "color" to color,
+                    "numero" to numero,
+                    "presupuesto" to presupuesto,
+                    "servicio" to servicio,
+                    "vehiculo" to vehiculo,
+                    "estado" to estado,
+                    "email" to email.toString()
+
+                )
+                firestore.collection("servicios").add(newService)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }
+            }catch(e: Exception){
+                Log.d("ERROR SAVE", "ERROR AL GUARDAR EL SERVICIO ${e.localizedMessage}")
+                }
+            }
+        }
 
         //FUNCION PARA EXTRAER TODOS LOS DATOS DE LA BD
         fun getServices() {
             val email = auth.currentUser?.email
             firestore.collection("servicios")
                 .whereEqualTo("email", email.toString())
-                .addSnapshotListener { query, error ->
+                .addSnapshotListener { querySnapshot, error ->
                     if (error != null) {
                         return@addSnapshotListener
                     }
                     val listaServicios = mutableListOf<ServiceState>()
-                    if (query != null) {
-                        for (listaServicio in query) {
-                            val service = listaServicio.toObject(ServiceState::class.java)
+                    if (querySnapshot != null) {
+                        for (listaServicio in querySnapshot) {
+                            //Sacar los campos de FireStore y los documentos
+                            val service = listaServicio.toObject(ServiceState::class.java).copy(idlist = listaServicio.id)
                             listaServicios.add(service)
 
                         }
