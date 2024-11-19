@@ -50,6 +50,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
     var color by remember { mutableStateOf("") }
     var servicio by remember { mutableStateOf("") }
     var presupuesto by remember { mutableStateOf("") }
+    var estado by remember { mutableStateOf("") }
     val context = LocalContext.current
 
 
@@ -137,11 +138,18 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     .padding(20.dp))
 
 
+            OutlinedTextField(
+                value = estado,
+                onValueChange = {estado = it},
+                label = { Text(text = "Estado")},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp))
 
 
             //AGREGA UNA NOTA A LA BD
             Button(onClick = {
-                serviciosVM.saveNewService(cliente, color, numero, presupuesto.toDouble(), servicio, vehiculo){
+                serviciosVM.saveNewService(cliente, color, numero, presupuesto.toDouble(), servicio, vehiculo, estado){
                     Toast.makeText(context, "Servicio guardado", Toast.LENGTH_SHORT).show()
                     navController.popBackStack()
                 }

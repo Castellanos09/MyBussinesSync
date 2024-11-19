@@ -73,6 +73,7 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                     Text(text = item.presupuesto.toString())
                     Text(text = item.servicio)
                     Text(text = item.vehiculo)
+                    Text(text = item.estado)
                 }
             }
 
