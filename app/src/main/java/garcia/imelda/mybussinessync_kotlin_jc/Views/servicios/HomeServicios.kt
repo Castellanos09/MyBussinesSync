@@ -1,7 +1,9 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -85,15 +87,18 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
             // Mostrar servicios
             val servicios by serviciosVM.servicesData.collectAsState()
 
-            LazyColumn {
+            LazyColumn (
+                modifier = Modifier.padding(top = 20.dp)
+            ){
                 items(servicios){ item ->
                     Text(text = item.cliente)
                     Text(text = item.color)
                     Text(text = item.numero)
-                    Text(text = item.presupuesto.toString())
+                    Text(text = item.presupuesto)
                     Text(text = item.servicio)
                     Text(text = item.vehiculo)
                     Text(text = item.estado)
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
 

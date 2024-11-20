@@ -50,7 +50,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
     var color by remember { mutableStateOf("") }
     var servicio by remember { mutableStateOf("") }
     var presupuesto by remember { mutableStateOf("") }
-    var estado by remember { mutableStateOf("") }
+    var estado by remember { mutableStateOf("Pendiente") }
     val context = LocalContext.current
 
 
