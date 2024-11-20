@@ -12,6 +12,8 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ServiciosViewModel: ViewModel() {
@@ -21,27 +23,16 @@ class ServiciosViewModel: ViewModel() {
     private val firestore = Firebase.firestore
 
     //RECUPERA LOS DATOS DEL MODELO "SERVICESTATE"
-    private val _serviceData = mutableStateOf<List<ServiceState>>(emptyList())
-    val serviceData: List<ServiceState> = _serviceData.value
+    private val _serviceData = MutableStateFlow<List<ServiceState>>(emptyList())
+    val servicesData: StateFlow<List<ServiceState>> = _serviceData
 
-    // Colocar los valores en el form para editar
-    // fun onValue(value: String, text: String, valueNumber: Number){
-    //when(text){
-    //  "cliente" -> _serviceData = _serviceData.copy(cliente = value)
-    // "color" -> state = state.copy(color = value)
-    //"numero" -> state = state.copy(numero = value)
-    //"presupuesto" -> state = state.copy(presupuesto = valueNumber)
-    //"servicio" -> state = state.copy(servicio = value)
-    //"vehiculo" -> state = state.copy(vehiculo = value)
-    //}
-    // }
 
     // Función para guardar un servicio
     fun saveNewService(
         cliente: String,
         color: String,
         numero: String,
-        presupuesto: Number,
+        presupuesto: String,
         servicio: String,
         vehiculo: String,
         estado: String,
@@ -70,48 +61,26 @@ class ServiciosViewModel: ViewModel() {
             }
         }
 
-        //FUNCION PARA EXTRAER TODOS LOS DATOS DE LA BD
-        fun getServices() {
-            val email = auth.currentUser?.email
-            firestore.collection("servicios")
-                .whereEqualTo("email", email.toString())
-                .addSnapshotListener { querySnapshot, error ->
-                    if (error != null) {
-                        return@addSnapshotListener
-                    }
-                    val listaServicios = mutableListOf<ServiceState>()
-                    if (querySnapshot != null) {
-                        for (listaServicio in querySnapshot) {
-                            //Sacar los campos de FireStore y los documentos
-                            val service = listaServicio.toObject(ServiceState::class.java).copy(idlist = listaServicio.id)
-                            listaServicios.add(service)
-
-                        }
-                    }
-                    _serviceData.value = listaServicios
+    // Traer todos los datos en base al email
+    fun fetchServices(){
+        val email = auth.currentUser?.email
+        firestore.collection("servicios")
+            .whereEqualTo("email", email.toString())
+            .addSnapshotListener{ querySnapshot, error ->
+                if(error != null){
+                    return@addSnapshotListener
                 }
-        }
-
-
-        //val email = auth.currentUser?.email
-        //viewModelScope.launch(Dispatchers.IO){
-        //  try{
-        //  val newService = hashMapOf(
-        //        "cliente" to cliente,
-        //    "color" to color,
-        //  "numero" to numero,
-        //"presupuesto" to presupuesto,
-        //"servicio" to servicio,
-        //"vehiculo" to vehiculo,
-        //"email" to email.toString()
-
-        //  )
-        //firestore.collection("servicios").add(newService)
-        //  .addOnSuccessListener {
-        //  onSuccess()
-        //}
-        //}catch(e: Exception){
-        //  Log.d("ERROR SAVE", "ERROR AL GUARDAR EL SERVICIO ${e.localizedMessage}")
+                val documents = mutableListOf<ServiceState>()
+                if(querySnapshot != null){
+                    for(document in querySnapshot){
+                        //Sacar los campos de FireStore y los documentos
+                        val myDocument = document.toObject(ServiceState::class.java).copy(idDoc = document.id)
+                        documents.add(myDocument)
+                    }
+                }
+                _serviceData.value = documents
+            }
+    }
 
     // Función para cerrar sesión
     fun logOut() {
