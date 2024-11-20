@@ -19,6 +19,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,7 +38,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel) {
     
    LaunchedEffect(Unit) {
-      serviciosVM.getServices()
+      serviciosVM.fetchServices()
    }
 
     Scaffold (
@@ -63,21 +65,6 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-            val servicio = serviciosVM.serviceData
-
-            LazyColumn {
-                items(servicio){ item ->
-                    Text(text = item.cliente)
-                    Text(text = item.color)
-                    Text(text = item.numero)
-                    Text(text = item.presupuesto.toString())
-                    Text(text = item.servicio)
-                    Text(text = item.vehiculo)
-                    Text(text = item.estado)
-                }
-            }
-
-
             Button(onClick = {
                 navController.navigate("AddServicio")
             },
@@ -94,6 +81,24 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
             ) {
                 Text(text = "Agregar servicio")
             }
+
+            // Mostrar servicios
+            val servicios by serviciosVM.servicesData.collectAsState()
+
+            LazyColumn {
+                items(servicios){ item ->
+                    Text(text = item.cliente)
+                    Text(text = item.color)
+                    Text(text = item.numero)
+                    Text(text = item.presupuesto.toString())
+                    Text(text = item.servicio)
+                    Text(text = item.vehiculo)
+                    Text(text = item.estado)
+                }
+            }
+
+
+
         }
     }
 }
