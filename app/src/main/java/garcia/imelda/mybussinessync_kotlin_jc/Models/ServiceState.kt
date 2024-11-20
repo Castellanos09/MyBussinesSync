@@ -7,7 +7,7 @@ data class ServiceState(
     val presupuesto: String = "",
     val servicio: String = "",
     val vehiculo: String = "",
-    val estado: String = "Pendiente",
+    val estado: String = "",
 
     val adeudos: List<Adeudo> = emptyList(), // Lista de adeudos
     val abonos: List<Abono> = emptyList(),   // Lista de abonos
