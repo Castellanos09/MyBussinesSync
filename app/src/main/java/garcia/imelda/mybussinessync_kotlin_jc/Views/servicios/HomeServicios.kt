@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import garcia.imelda.mybussinessync_kotlin_jc.R
-import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
