@@ -4,11 +4,16 @@ data class ServiceState(
     val cliente: String = "",
     val color: String = "",
     val numero: String = "",
-    val presupuesto: Number = 0,
+    val presupuesto: String = "",
     val servicio: String = "",
     val vehiculo: String = "",
+    val estado: String = "",
+
     val adeudos: List<Adeudo> = emptyList(), // Lista de adeudos
-    val abonos: List<Abono> = emptyList()   // Lista de abonos
+    val abonos: List<Abono> = emptyList(),   // Lista de abonos
+
+    val idDoc: String = "",
+
 
 ){
 
