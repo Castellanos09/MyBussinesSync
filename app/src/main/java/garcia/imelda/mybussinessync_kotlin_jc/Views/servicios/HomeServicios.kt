@@ -48,6 +48,8 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFF004aad),
                     titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                    actionIconContentColor = Color.White
                 ),
 
                 title = { Text(text = "Inicio")},
@@ -86,22 +88,22 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
             // Mostrar servicios
             val servicios by serviciosVM.servicesData.collectAsState()
 
-            LazyColumn (
-                modifier = Modifier.padding(top = 20.dp)
-            ){
-                items(servicios){ item ->
-                    Text(text = item.cliente)
-                    Text(text = item.color)
-                    Text(text = item.numero)
-                    Text(text = item.presupuesto)
-                    Text(text = item.servicio)
-                    Text(text = item.vehiculo)
-                    Text(text = item.estado)
-                    Spacer(modifier = Modifier.height(16.dp))
+            LazyColumn{
+                items(servicios) { item ->
+                    CardServicio(
+                        cliente = item.cliente,
+                        color = item.color,
+                        vehiculo = item.vehiculo,
+                        numero = item.numero,
+                        presupuesto = item.presupuesto,
+                        servicio = item.servicio,
+                        estado = item.estado,
+                        onClick = {
+
+                        }
+                    )
                 }
             }
-
-
 
         }
     }
