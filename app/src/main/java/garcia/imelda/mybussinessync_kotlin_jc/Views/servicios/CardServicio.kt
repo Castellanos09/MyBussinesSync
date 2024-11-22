@@ -43,19 +43,19 @@ fun CardServicio (
         Column (modifier = Modifier
             .padding(10.dp)) {
             //CLIENTE
-            Text(text = cliente, modifier = Modifier.fillMaxWidth(), fontSize = 20.sp)
+            Text(text = "Cliente: "+cliente, modifier = Modifier.fillMaxWidth(), fontSize = 20.sp)
 
             Row (modifier = Modifier.padding(10.dp)){
                 //NÚMERO
-                Text(text = numero, Modifier.padding(10.dp))
+                Text(text = "Contacto: "+numero, Modifier.padding(10.dp))
                 //VEHICULO FALTA DEFINIR ¿?
-                //Text(text = vehiculo, Modifier.padding(10.dp))
+                //Text(text = "Vehiculo: "+vehiculo, Modifier.padding(10.dp))
                 //COLOR
-                Text(text = color, Modifier.padding(10.dp))
+                Text(text = "Color: "+color, Modifier.padding(10.dp))
                 //SERVICIO
-                Text(text = servicio, Modifier.padding(10.dp))
+                Text(text = "Servicio: "+servicio, Modifier.padding(10.dp))
                 //PRESUPUESTO
-                Text(text = presupuesto.toString(), Modifier.padding(10.dp))
+                Text(text = "Presupuesto: "+presupuesto.toString(), Modifier.padding(10.dp))
 
                 
                 Spacer(modifier = Modifier.weight(1f))
