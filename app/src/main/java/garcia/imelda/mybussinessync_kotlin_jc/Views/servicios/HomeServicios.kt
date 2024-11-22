@@ -28,16 +28,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import garcia.imelda.mybussinessync_kotlin_jc.R
-import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.NotasViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel) {
-    
-   LaunchedEffect(Unit) {
-      serviciosVM.getServices()
-   }
+
 
     Scaffold (
         topBar = {
@@ -63,18 +59,6 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-            val servicio = serviciosVM.serviceData
-
-            LazyColumn {
-                items(servicio){ item ->
-                    Text(text = item.cliente)
-                    Text(text = item.color)
-                    Text(text = item.numero)
-                    Text(text = item.presupuesto.toString())
-                    Text(text = item.servicio)
-                    Text(text = item.vehiculo)
-                }
-            }
 
 
             Button(onClick = {
