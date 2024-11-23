@@ -14,8 +14,10 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -24,6 +26,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
@@ -34,10 +38,11 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
 import garcia.imelda.mybussinessync_kotlin_jc.R
 
-
 @Composable
+
 fun CardServicio(
     cliente: String,
     color: String,
@@ -46,8 +51,12 @@ fun CardServicio(
     presupuesto: String,
     servicio: String,
     estado: String,
+
     onClick: () -> Unit
 ) {
+    // Estado para controlar la visibilidad de la ventana modal
+    val showModal = remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .padding(20.dp),
@@ -158,7 +167,7 @@ fun CardServicio(
                 //ICONO DETALLE
                 Button(
                     onClick = {
-                        //
+                        showModal.value = true // Muestra la ventana modal
                     },
                     modifier = Modifier,
                         //.padding(start = 90.dp, end = 90.dp),
@@ -218,8 +227,46 @@ fun CardServicio(
 
             }
 
-
         }
 
     }
+
+    // Ventana modal para "Adeudos" y "Abonos"
+    if (showModal.value) {
+        AlertDialog(
+            onDismissRequest = { showModal.value = false },// Cierra la ventana modal
+            text = {
+                Text(text = "Seleccione una acción:", fontSize = 25.sp)
+            },
+            dismissButton = {
+                Button(
+                    onClick = {
+                        // Lógica para ir a "Adeudos"
+                        showModal.value = false // Cierra el modal
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.azulFuerte),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Adeudos")
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        // Lógica para ir a "Abonos"
+                        showModal.value = false // Cierra el modal
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.azulFuerte),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Abonos")
+                }
+            }
+        )
+    }
 }
+
