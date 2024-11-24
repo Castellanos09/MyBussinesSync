@@ -31,10 +31,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.roomcronoapp.components.FloatButton
 import garcia.imelda.mybussinessync_kotlin_jc.R
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel) {
     
@@ -52,38 +54,42 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                     actionIconContentColor = Color.White
                 ),
 
-                title = { Text(text = "Inicio")},
+                title = { Text(text = "Servicios")},
                 actions = {
                     IconButton(onClick = {
-                        navController.popBackStack()
+                        navController.navigate("Login")
                     }) {
                         Icon(
                             imageVector =   Icons.AutoMirrored.Filled.ExitToApp,
                             contentDescription = "")
                     }
                 })
+        } ,
+        floatingActionButton = {
+            FloatButton {
+                navController.navigate("AddServicio")
+            }
         }
 
     ) {padding ->
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
-
-            Button(onClick = {
-                navController.navigate("AddServicio")
-            },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 100.dp, end = 100.dp),
-                colors = ButtonColors(
-                    containerColor = colorResource(id = R.color.azulFuerte),
-                    contentColor = Color.White,
-                    disabledContainerColor = colorResource(id = R.color.azulBajito),
-                    disabledContentColor = Color.White
-                )
-
-            ) {
-                Text(text = "Agregar servicio")
-            }
+//            Button(onClick = {
+//                navController.navigate("AddServicio")
+//            },
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(start = 100.dp, end = 100.dp),
+//                colors = ButtonColors(
+//                    containerColor = colorResource(id = R.color.azulFuerte),
+//                    contentColor = Color.White,
+//                    disabledContainerColor = colorResource(id = R.color.azulBajito),
+//                    disabledContentColor = Color.White
+//                )
+//
+//            ) {
+//                Text(text = "Agregar servicio")
+//            }
 
             // Mostrar servicios
             val servicios by serviciosVM.servicesData.collectAsState()
@@ -99,7 +105,6 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                         servicio = item.servicio,
                         estado = item.estado,
                         onClick = {
-
                         }
                     )
                 }
