@@ -14,5 +14,6 @@
     <color name="detailColor">#FF8955ff</color>
     <color name="trashColor">#FFee4543</color>
     <color name="phoneColor">#FF0d3a5b</color>
+    <color name="darkGreen">#FF263d29</color>
 
 </resources>

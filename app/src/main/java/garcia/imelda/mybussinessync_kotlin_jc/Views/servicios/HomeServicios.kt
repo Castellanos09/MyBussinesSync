@@ -1,7 +1,9 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +21,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,7 +37,10 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel) {
-
+    
+   LaunchedEffect(Unit) {
+      serviciosVM.fetchServices()
+   }
 
     Scaffold (
         topBar = {
@@ -41,6 +48,8 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFF004aad),
                     titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                    actionIconContentColor = Color.White
                 ),
 
                 title = { Text(text = "Inicio")},
@@ -59,8 +68,6 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-
-
             Button(onClick = {
                 navController.navigate("AddServicio")
             },
@@ -77,6 +84,27 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
             ) {
                 Text(text = "Agregar servicio")
             }
+
+            // Mostrar servicios
+            val servicios by serviciosVM.servicesData.collectAsState()
+
+            LazyColumn{
+                items(servicios) { item ->
+                    CardServicio(
+                        cliente = item.cliente,
+                        color = item.color,
+                        vehiculo = item.vehiculo,
+                        numero = item.numero,
+                        presupuesto = item.presupuesto,
+                        servicio = item.servicio,
+                        estado = item.estado,
+                        onClick = {
+
+                        }
+                    )
+                }
+            }
+
         }
     }
 }
