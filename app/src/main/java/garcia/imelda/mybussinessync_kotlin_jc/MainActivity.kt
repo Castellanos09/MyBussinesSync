@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
+import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.LoginView
@@ -22,6 +23,8 @@ class MainActivity : ComponentActivity() {
     //val notasVM : NotasViewModel by viewModels()
     val serviciosVM : ServiciosViewModel by viewModels()
 
+    val adeudosVM : AdeudosViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                     ) {
-                    NavManager(loginVM, serviciosVM)
+                    NavManager(loginVM, serviciosVM, adeudosVM)
                 }
             }
         }

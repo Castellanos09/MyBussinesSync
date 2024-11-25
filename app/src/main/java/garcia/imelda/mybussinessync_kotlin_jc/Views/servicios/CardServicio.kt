@@ -38,7 +38,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
+import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
 import garcia.imelda.mybussinessync_kotlin_jc.R
 
 @Composable
@@ -51,6 +53,7 @@ fun CardServicio(
     presupuesto: String,
     servicio: String,
     estado: String,
+    navController: NavController,
 
     onClick: () -> Unit
 ) {
@@ -209,6 +212,7 @@ fun CardServicio(
                 //ICONO ELIMINAR
 
                 Button(
+
                     onClick = {
                         //
                     },
@@ -242,7 +246,7 @@ fun CardServicio(
                 Button(
                     onClick = {
                         // Lógica para ir a "Adeudos"
-                        showModal.value = false // Cierra el modal
+                        navController.navigate("Adeudos")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.azulFuerte),
