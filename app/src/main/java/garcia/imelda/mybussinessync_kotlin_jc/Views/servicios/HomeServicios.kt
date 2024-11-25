@@ -90,6 +90,7 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                         servicio = item.servicio,
                         estado = item.estado,
                         navController = navController,
+                        idDoc = item.idDoc,
                         onClick = {
 
                         }

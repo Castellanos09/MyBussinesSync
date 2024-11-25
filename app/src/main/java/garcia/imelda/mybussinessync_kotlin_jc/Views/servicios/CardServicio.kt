@@ -39,9 +39,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
 import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
 import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
 import garcia.imelda.mybussinessync_kotlin_jc.R
+import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 
 @Composable
 
@@ -53,12 +55,17 @@ fun CardServicio(
     presupuesto: String,
     servicio: String,
     estado: String,
+    idDoc : String, // Identificador único del servicio (necesario para eliminarlo)
+    onClick: () -> Unit,
+    serviciosViewModel: ServiciosViewModel = viewModel() // Inyectamos el ViewModel
     navController: NavController,
 
     onClick: () -> Unit
 ) {
     // Estado para controlar la visibilidad de la ventana modal
     val showModal = remember { mutableStateOf(false) }
+    val showDeleteDialog = remember { mutableStateOf(false) } // Controla la visibilidad de la ventana de confirmación
+    val showSuccessDialog = remember { mutableStateOf(false) } // Controla el mensaje de "Eliminado correctamente"
 
     Card(
         modifier = Modifier
@@ -210,11 +217,10 @@ fun CardServicio(
                 }
 
                 //ICONO ELIMINAR
-
                 Button(
 
                     onClick = {
-                        //
+                        showDeleteDialog.value = true
                     },
                     modifier = Modifier,
                         //.padding(start = 90.dp, end = 90.dp),
@@ -272,5 +278,61 @@ fun CardServicio(
             }
         )
     }
+
+    // Ventana de confirmación para eliminar el servicio
+    if (showDeleteDialog.value) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog.value = false }, // Cierra el diálogo sin acción
+            title = { Text(text = "Confirmación") },
+            text = { Text(text = "¿Estás seguro de que deseas eliminar este servicio?") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        serviciosViewModel.deleteService(idDoc) // Lógica para eliminar el servicio
+                        showDeleteDialog.value = false // Cierra el diálogo de confirmación
+                        showSuccessDialog.value = true // Muestra el mensaje de éxito
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.azulFuerte),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Sí")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = { showDeleteDialog.value = false }, // Cierra el diálogo sin acción
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.azulFuerte),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "No")
+                }
+            }
+        )
+    }
+
+    // Ventana para mostrar "Eliminado correctamente"
+    if (showSuccessDialog.value) {
+        AlertDialog(
+            onDismissRequest = { showSuccessDialog.value = false }, // Cierra el diálogo
+            title = { Text(text = "Éxito") },
+            text = { Text(text = "Servicio eliminado correctamente.") },
+            confirmButton = {
+                Button(
+                    onClick = { showSuccessDialog.value = false }, // Cierra el mensaje de éxito
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorResource(id = R.color.azulFuerte),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Aceptar")
+                }
+            }
+        )
+    }
 }
+
 
