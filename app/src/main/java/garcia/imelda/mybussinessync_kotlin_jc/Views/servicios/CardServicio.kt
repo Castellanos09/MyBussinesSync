@@ -1,5 +1,7 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -199,7 +201,9 @@ fun CardServicio(
                 //ICONO LLAMADA
                 Button(
                     onClick = {
-                        navController.navigate("EditServicioView/${idDoc}")
+                        val intent = Intent(Intent.ACTION_DIAL) // Utilizamos ACTION_DIAL para abrir la app de llamadas
+                        intent.data = Uri.parse("tel:$numero") // Pasamos el número de teléfono
+                        navController.context.startActivity(intent) // Iniciamos la actividad
                     },
                     modifier = Modifier,
                         //.padding(start = 120.dp, end = 120.dp),
