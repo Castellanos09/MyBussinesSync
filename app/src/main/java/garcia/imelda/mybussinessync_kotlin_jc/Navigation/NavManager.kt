@@ -16,6 +16,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.TabsView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.checkSesion
 import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.AddServicioView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.AllServicesView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.EditServicioView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.HomeServicios
 
 @Composable
@@ -34,8 +35,11 @@ fun NavManager(loginVM: LoginViewModel, serviciosVM: ServiciosViewModel, adeudos
         composable( "AddServicio"){
             AddServicioView(navController, serviciosVM)
          }
-        composable("AllServices"){
-            AllServicesView(navController, serviciosVM)
+        composable("EditServicioView/{idDoc}", arguments = listOf(
+            navArgument("idDoc"){ type = NavType.StringType }
+        )){
+            val idDoc = it.arguments?.getString("idDoc") ?: ""
+            EditServicioView(navController, serviciosVM, idDoc = idDoc)
         }
         composable( "Adeudo/{idDoc}", arguments = listOf(
             navArgument("idDoc") {type = NavType.StringType}

@@ -30,6 +30,24 @@ class ServiciosViewModel: ViewModel() {
     private val _services = mutableStateListOf<ServiceState>() // Reemplaza con tu modelo
     val services: List<ServiceState> get() = _services
 
+    var state by mutableStateOf(ServiceState())
+        private set
+
+    // Colocar los valores en el form para editar
+    fun onValue(value: String, text: String){
+        when(text){
+            "cliente" -> state = state.copy(cliente = value)
+            "numero" -> state = state.copy(numero = value)
+            "vehiculo" -> state = state.copy(vehiculo = value)
+            "color" -> state = state.copy(color = value)
+            "servicio" -> state = state.copy(servicio = value)
+            "presupuesto" -> state = state.copy(presupuesto = value)
+        }
+    }
+
+
+
+
     // Función para guardar un servicio
     fun saveNewService(
         cliente: String,
@@ -82,6 +100,51 @@ class ServiciosViewModel: ViewModel() {
                 }
                 _serviceData.value = documents
             }
+    }
+
+    // Obtener un servicio
+    fun getServiceById(documentId: String){
+        firestore.collection("servicios")
+            .document(documentId)
+            .addSnapshotListener{ snapshot, _ ->
+                if(snapshot != null){
+                    val service = snapshot.toObject(ServiceState::class.java)
+                    state = state.copy(
+                        cliente = service?.cliente ?: "",
+                        numero = service?.numero ?: "",
+                        vehiculo = service?.vehiculo ?: "",
+                        color = service?.color ?: "",
+                        servicio = service?.servicio ?: "",
+                        presupuesto = service?.presupuesto ?: "",
+                    )
+                }
+
+            }
+    }
+
+    //Función para editar una nota
+    fun updateService(idDoc: String, onSuccess: () -> Unit){
+        viewModelScope.launch(Dispatchers.IO){
+            try{
+                val editNote = hashMapOf(
+                    "cliente" to state.cliente,
+                    "numero" to state.numero,
+                    "vehiculo" to state.vehiculo,
+                    "color" to state.color,
+                    "servicio" to state.servicio,
+                    "presupuesto" to state.presupuesto
+
+                    )
+                firestore.collection("servicios").document(idDoc)
+                    .update(editNote as Map<String, Any>)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }
+
+            }catch(e: Exception){
+                Log.d("ERROR EDIT", "ERROR AL EDITAR NOTA ${e.localizedMessage}")
+            }
+        }
     }
 
 

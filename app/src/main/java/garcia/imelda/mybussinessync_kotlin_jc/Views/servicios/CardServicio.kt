@@ -35,7 +35,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
@@ -226,7 +225,7 @@ fun CardServicio(
 
                 Button(
                     onClick = {
-                        //
+                        navController.navigate("EditServicioView/${idDoc}")
                     },
                     modifier = Modifier,
                     //.padding(start = 90.dp, end = 90.dp),
