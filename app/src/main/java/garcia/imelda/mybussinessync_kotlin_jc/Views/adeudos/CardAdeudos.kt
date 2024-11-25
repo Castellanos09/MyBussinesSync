@@ -40,9 +40,9 @@ fun CardAdeudos(
         Column (modifier = Modifier
             .padding(10.dp)) {
             //CLIENTE
-            Text(text = "Abono", modifier = Modifier.fillMaxWidth(), fontSize = 20.sp)
+            Text(text = "Adeudo", modifier = Modifier.fillMaxWidth(), fontSize = 20.sp)
 
-            Row (modifier = Modifier.padding(10.dp)){
+
                 //DESCRIPCIÓN
                 Text(text = "Descripción: "+descripcion, Modifier.padding(10.dp))
                 //MONTO
@@ -69,7 +69,7 @@ fun CardAdeudos(
                         contentDescription = "detalleIcon")
                 }
 
-            }
+
         }
     }
 }

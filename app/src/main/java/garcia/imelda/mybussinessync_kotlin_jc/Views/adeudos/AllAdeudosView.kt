@@ -1,5 +1,6 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.Adeudos
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,7 +33,8 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
 @Composable
 fun AllAdeudosView(navController: NavController, adeudosVM : AdeudosViewModel, serviciosVM: ServiciosViewModel, idDoc: String){
     LaunchedEffect(Unit) {
-     adeudosVM.fetchAdeudos()
+        Log.d("DEBUG", "Fetching adeudos para idDoc: $idDoc")
+        adeudosVM.fetchAdeudos(idDoc)
     }
 
     Scaffold (
@@ -72,17 +74,24 @@ fun AllAdeudosView(navController: NavController, adeudosVM : AdeudosViewModel, s
 //
             // Mostrar adeudos
             val adeudos by adeudosVM.adeudosData.collectAsState()
-            LazyColumn {
-                items(adeudos){ item ->
-                    CardAdeudos(
-                        descripcion = item.descripcion, monto = item.monto,
-                        onClick =  {
-                        }
-                    )
+            if (adeudos.isEmpty()) {
+                Text(text = "No hay adeudos disponibles", style = MaterialTheme.typography.bodyMedium)
+            } else {
+                LazyColumn {
+                    items(adeudos) { adeudo ->
+                        CardAdeudos(
+                            descripcion = adeudo.descripcion,
+                            monto = adeudo.monto,
+                            onClick = {
+                                // Acción al hacer clic en el adeudo
+                            }
+                        )
+
+                    }
+                }
 
             }
-////
-            }
+
 
         }
     }

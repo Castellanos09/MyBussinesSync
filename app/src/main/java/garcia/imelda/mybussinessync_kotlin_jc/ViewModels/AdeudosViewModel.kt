@@ -42,9 +42,7 @@ class AdeudosViewModel : ViewModel() {
                 val newAdeudo= hashMapOf(
                     "descripcion" to descripcion,
                     "monto" to monto,
-//                    "total" to total,
-                    "idDoc" to idDoc,
-                    "email" to email.toString()
+                    "email" to email.toString(),
                 )
                 val servicioRef = firestore.collection("servicios").document(idDoc)
 
@@ -62,20 +60,21 @@ class AdeudosViewModel : ViewModel() {
     }
 
     // Traer todos los datos en base al email
-    fun fetchAdeudos() {
+    fun fetchAdeudos(idDoc: String) {
         val email = auth.currentUser?.email
-        firestore.collection("adeudos")
-            .whereEqualTo("email", email.toString()  )
+        firestore.collection("servicios")
+            .document(idDoc)
+            .collection("adeudos")
+            .whereEqualTo("email", email.toString())
             .addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
+                    Log.e("Firebase", "Error al obtener adeudos: ${error.localizedMessage}")
                     return@addSnapshotListener
                 }
                 val documents = mutableListOf<Adeudo>()
                 if (querySnapshot != null) {
                     for (document in querySnapshot) {
-                        //Sacar los campos de FireStore y los documentos
-                        val myDocument =
-                            document.toObject(Adeudo::class.java).copy(idDoc = document.id)
+                        val myDocument = document.toObject(Adeudo::class.java).copy(idDoc = document.id)
                         documents.add(myDocument)
                     }
                 }
