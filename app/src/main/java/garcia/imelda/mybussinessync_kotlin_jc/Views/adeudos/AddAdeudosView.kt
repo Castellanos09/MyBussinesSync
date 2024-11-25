@@ -1,13 +1,12 @@
-package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
+package garcia.imelda.mybussinessync_kotlin_jc.Views.Adeudos
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -21,7 +20,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,24 +36,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import garcia.imelda.mybussinessync_kotlin_jc.R
-import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
-
+import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-//FALTA PEGAR ESTOS PARAMETROS EN LA FUNCION
-fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewModel) {
+//FALTA AGREGAR PARAMETROS EN LA FUNCION
+fun AddAdeudosView(navController: NavController, adeudosVM: AdeudosViewModel) {
 
-    var cliente by remember { mutableStateOf("") }
-    var numero by remember { mutableStateOf("") }
-    var vehiculo by remember { mutableStateOf("") }
-    var color by remember { mutableStateOf("") }
-    var servicio by remember { mutableStateOf("") }
-    var presupuesto by remember { mutableStateOf("") }
-    var estado by remember { mutableStateOf("Pendiente") }
+
+    //DECLARACION DE VARIABLES
+    var descripcion by remember { mutableStateOf("") }
+    var monto by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-
+//TOP BAR AZUL EN APP
     Scaffold (
         topBar = {
             TopAppBar(
@@ -67,11 +61,12 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
 
                     ),
 
-                title = { Text(text = "Agregar Servicio")},
+                title = { Text(text = "Cargar un adeudo") },
                 navigationIcon = {
 
+                    //BOTON
                     IconButton(onClick = {
-                        navController.navigate("Home") //REGRESA A LA VISTA PRINCIPAL
+                        navController.popBackStack() //REGRESA A LA VISTA PRINCIPAL
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -82,71 +77,44 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
         }
 
     ) { paddingValues ->
-        Column(modifier = Modifier
-            .padding(paddingValues)
-            .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally){
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
 
 
+            Spacer(modifier = Modifier.height(70.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.adeudo_icon),
+                contentDescription = "AdeudoIcon")
+
+            //TEXTFIELD CAMPO DESCRIPCION
             OutlinedTextField(
-                value =  cliente,
-                onValueChange = {cliente = it},
-                label = { Text(text = "Nombre del cliente")},
+                value = descripcion,
+                onValueChange = { descripcion = it },
+                label = { Text(text = "Descripción") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp))
+                    .padding(10.dp)
+            )
 
-//INGRESAR UNA DESCRIPCIÓN
+            //TEXTFIELD CAMPO MONTO
             OutlinedTextField(
-                value = numero,
-                onValueChange = {numero = it},
-                label = { Text(text = "Contacto del cliente")},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp))
-
-
-            OutlinedTextField(
-                value = vehiculo,
-                onValueChange = {vehiculo = it},
-                label = { Text(text = "Marca del vehiculo")},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp))
-
-            OutlinedTextField(
-                value = color,
-                onValueChange = {color = it},
-                label = { Text(text = "Color del vehiculo")},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp))
-
-            OutlinedTextField(
-                value = servicio,
-                onValueChange = {servicio = it},
-                label = { Text(text = "Descripción del servicio")},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp))
-
-
-            OutlinedTextField(
-                value = presupuesto,
-                onValueChange = {presupuesto = it},
-                label = { Text(text = "Presupuesto estimado")},
+                value = monto,
+                onValueChange = { monto = it },
+                label = { Text(text = "Monto") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), // Teclado específico para decimal
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp))
+                    .padding(20.dp)
+            )
 
-            //AGREGA UNA NOTA A LA BD
-            Button(onClick = {
-                serviciosVM.saveNewService(cliente, color, numero, presupuesto, servicio, vehiculo, estado){
-                    Toast.makeText(context, "Servicio guardado", Toast.LENGTH_SHORT).show()
-                    navController.popBackStack()
-                }
-            },
+            //BOTON AGREGA UNA NOTA A LA BD
+            Button(
+                onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 100.dp, end = 100.dp),
@@ -156,10 +124,10 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     disabledContainerColor = colorResource(id = R.color.azulBajito),
                     disabledContentColor = Color.White
                 )
+
             ) {
-                Text(text = "Guardar servicio")
+                Text(text = "Guardar adeudo")
             }
         }
     }
 }
-

@@ -1,10 +1,6 @@
 package garcia.imelda.mybussinessync_kotlin_jc.ViewModels
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
@@ -17,7 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class ServiciosViewModel: ViewModel() {
+class AdeudosViewModel : ViewModel() {
 
     //HACE LA CONEXIÓN A LA BD
     val auth: FirebaseAuth = Firebase.auth
@@ -27,8 +23,6 @@ class ServiciosViewModel: ViewModel() {
     private val _serviceData = MutableStateFlow<List<ServiceState>>(emptyList())
     val servicesData: StateFlow<List<ServiceState>> = _serviceData
 
-    private val _services = mutableStateListOf<ServiceState>() // Reemplaza con tu modelo
-    val services: List<ServiceState> get() = _services
 
     // Función para guardar un servicio
     fun saveNewService(
@@ -40,9 +34,10 @@ class ServiciosViewModel: ViewModel() {
         vehiculo: String,
         estado: String,
         onSuccess: () -> Unit
-    ) { val email = auth.currentUser?.email
-        viewModelScope.launch(Dispatchers.IO){
-            try{
+    ) {
+        val email = auth.currentUser?.email
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
                 val newService = hashMapOf(
                     "cliente" to cliente,
                     "color" to color,
@@ -52,31 +47,33 @@ class ServiciosViewModel: ViewModel() {
                     "vehiculo" to vehiculo,
                     "estado" to estado,
                     "email" to email.toString()
+
                 )
                 firestore.collection("servicios").add(newService)
                     .addOnSuccessListener {
                         onSuccess()
                     }
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 Log.d("ERROR SAVE", "ERROR AL GUARDAR EL SERVICIO ${e.localizedMessage}")
-                }
             }
         }
+    }
 
     // Traer todos los datos en base al email
-    fun fetchServices(){
+    fun fetchServices() {
         val email = auth.currentUser?.email
         firestore.collection("servicios")
             .whereEqualTo("email", email.toString())
-            .addSnapshotListener{ querySnapshot, error ->
-                if(error != null){
+            .addSnapshotListener { querySnapshot, error ->
+                if (error != null) {
                     return@addSnapshotListener
                 }
                 val documents = mutableListOf<ServiceState>()
-                if(querySnapshot != null){
-                    for(document in querySnapshot){
+                if (querySnapshot != null) {
+                    for (document in querySnapshot) {
                         //Sacar los campos de FireStore y los documentos
-                        val myDocument = document.toObject(ServiceState::class.java).copy(idDoc = document.id)
+                        val myDocument =
+                            document.toObject(ServiceState::class.java).copy(idDoc = document.id)
                         documents.add(myDocument)
                     }
                 }
@@ -84,35 +81,10 @@ class ServiciosViewModel: ViewModel() {
             }
     }
 
-
-    //Función para eliminar servicios
-    fun deleteService(idDoc: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                // Elimina el documento en Firestore basado en el servicioID
-                firestore.collection("servicios").document(idDoc).delete()
-                    .addOnSuccessListener {
-                        // Una vez eliminado de Firestore, también se elimina de la lista local
-                        viewModelScope.launch(Dispatchers.Main) {
-                            _services.removeIf { it.idDoc == idDoc }
-                            Log.d("DELETE", "Servicio eliminado correctamente")
-                        }
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("DELETE ERROR", "Error al eliminar el servicio: ${e.localizedMessage}")
-                    }
-            } catch (e: Exception) {
-                Log.e("DELETE ERROR", "Error inesperado al eliminar el servicio: ${e.localizedMessage}")
-            }
-        }
-    }
     // Función para cerrar sesión
     fun logOut() {
         auth.signOut()
     }
 
 }
-
-
-
 

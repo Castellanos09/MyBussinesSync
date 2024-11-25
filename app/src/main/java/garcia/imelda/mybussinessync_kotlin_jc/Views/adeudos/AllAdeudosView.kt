@@ -1,17 +1,11 @@
-package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
+package garcia.imelda.mybussinessync_kotlin_jc.Views.Adeudos
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,31 +16,23 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.roomcronoapp.components.FloatButton
-import garcia.imelda.mybussinessync_kotlin_jc.R
-import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
+import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
-fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel) {
-    
-   LaunchedEffect(Unit) {
-      serviciosVM.fetchServices()
-   }
+fun AllAdeudosView(navController: NavController, adeudosVM : AdeudosViewModel){
+    LaunchedEffect(Unit) {
+//        serviciosVM.fetchServices()
+    }
 
     Scaffold (
         topBar = {
+
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -55,20 +41,20 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                     actionIconContentColor = Color.White
                 ),
 
-                title = { Text(text = "Servicios")},
+                title = { Text(text = "Adeudos")},
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate("Login")
+                        navController.navigate("Home")
                     }) {
                         Icon(
-                            imageVector =   Icons.AutoMirrored.Filled.ExitToApp,
+                            imageVector =   Icons.Default.Home,
                             contentDescription = "")
                     }
                 })
         } ,
         floatingActionButton = {
             FloatButton {
-                navController.navigate("AddServicio")
+                navController.navigate("AddAdeudo")
             }
         }
 
@@ -77,29 +63,24 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
             horizontalAlignment = Alignment.CenterHorizontally){
 //
             // Mostrar servicios
-            val servicios by serviciosVM.servicesData.collectAsState()
+//            val servicios by serviciosVM.servicesData.collectAsState()
 
             LazyColumn{
-                items(servicios) { item ->
-                    CardServicio(
-                        cliente = item.cliente,
-                        color = item.color,
-                        vehiculo = item.vehiculo,
-                        numero = item.numero,
-                        presupuesto = item.presupuesto,
-                        servicio = item.servicio,
-                        estado = item.estado,
-                        navController = navController,
-                        idDoc = item.idDoc,
-                        onClick = {
-
-                        }
-                    )
-                }
+//                items(servicios) { item ->
+//                    CardServicio(
+//                        cliente = item.cliente,
+//                        color = item.color,
+//                        vehiculo = item.vehiculo,
+//                        numero = item.numero,
+//                        presupuesto = item.presupuesto,
+//                        servicio = item.servicio,
+//                        estado = item.estado,
+//                        onClick = {
+//                        }
+//                    )
+//                }
             }
 
         }
     }
 }
-
-
