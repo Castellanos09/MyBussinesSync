@@ -13,21 +13,17 @@ data class ServiceState(
     val abonos: List<Abono> = emptyList(),   // Lista de abonos
 
     val idDoc: String = "",
-
-
 ){
-
-
     // Modelo para un adeudo
     data class Adeudo(
         val descripcion: String = "",
-        val monto: Number = 0
+        val monto: String = ""
     )
 
     // Modelo para un abono
     data class Abono(
         val descripcion: String = "",
         val fecha: String = "", // Cambiar a Timestamp si planeas usar Firebase Timestamp
-        val monto: Number = 0
+        val monto: String = ""
     )
 }

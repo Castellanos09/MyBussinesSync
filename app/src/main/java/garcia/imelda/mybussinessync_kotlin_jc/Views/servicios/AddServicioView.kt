@@ -71,7 +71,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                 navigationIcon = {
 
                     IconButton(onClick = {
-                        // navController.popBackStack() //REGRESA A LA VISTA PRINCIPAL
+                        navController.navigate("Home") //REGRESA A LA VISTA PRINCIPAL
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -157,7 +157,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     disabledContentColor = Color.White
                 )
             ) {
-                Text(text = "Agregar servicio")
+                Text(text = "Guardar servicio")
             }
         }
     }

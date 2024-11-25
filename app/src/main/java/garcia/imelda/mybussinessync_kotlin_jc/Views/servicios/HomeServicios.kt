@@ -15,6 +15,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -48,7 +49,7 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF004aad),
+                    containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White,
                     actionIconContentColor = Color.White
@@ -74,23 +75,7 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
     ) {padding ->
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
-//            Button(onClick = {
-//                navController.navigate("AddServicio")
-//            },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(start = 100.dp, end = 100.dp),
-//                colors = ButtonColors(
-//                    containerColor = colorResource(id = R.color.azulFuerte),
-//                    contentColor = Color.White,
-//                    disabledContainerColor = colorResource(id = R.color.azulBajito),
-//                    disabledContentColor = Color.White
-//                )
 //
-//            ) {
-//                Text(text = "Agregar servicio")
-//            }
-
             // Mostrar servicios
             val servicios by serviciosVM.servicesData.collectAsState()
 
@@ -104,7 +89,9 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                         presupuesto = item.presupuesto,
                         servicio = item.servicio,
                         estado = item.estado,
+                        navController = navController,
                         onClick = {
+
                         }
                     )
                 }
