@@ -205,9 +205,9 @@ fun CardServicio(
                 //ICONO LLAMADA
                 Button(
                     onClick = {
-                        //
-
-
+                        val intent = Intent(Intent.ACTION_DIAL) // Utilizamos ACTION_DIAL para abrir la app de llamadas
+                        intent.data = Uri.parse("tel:$numero") // Pasamos el número de teléfono
+                        navController.context.startActivity(intent) // Iniciamos la actividad
                     },
                     modifier = Modifier,
                         //.padding(start = 120.dp, end = 120.dp),
@@ -258,8 +258,7 @@ fun CardServicio(
                 Button(
                     onClick = {
                         // Lógica para ir a "Adeudos"
-                        // navController.navigate("Adeudos")
-                        navController.navigate("Adeudo/${idDoc}")
+                        navController.navigate("Adeudos")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.azulFuerte),
