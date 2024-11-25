@@ -1,9 +1,11 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
@@ -35,11 +37,17 @@ fun NavManager(loginVM: LoginViewModel, serviciosVM: ServiciosViewModel, adeudos
         composable("AllServices"){
             AllServicesView(navController, serviciosVM)
         }
-        composable("Adeudos"){
-            AllAdeudosView(navController, adeudosVM)
+        composable( "Adeudo/{idDoc}", arguments = listOf(
+            navArgument("idDoc") {type = NavType.StringType}
+        )){
+            val idDoc = it.arguments?.getString("idDoc") ?: " "
+            AllAdeudosView(navController, adeudosVM,serviciosVM, idDoc = idDoc)
         }
-        composable( "AddAdeudo"){
-            AddAdeudosView(navController, adeudosVM)
+        composable( "AddAdeudo/{idDoc}", arguments = listOf(
+            navArgument("idDoc") {type = NavType.StringType}
+        )){
+            val idDoc = it.arguments?.getString("idDoc") ?: " "
+            AddAdeudosView(navController, adeudosVM, idDoc = idDoc)
         }
 
     }

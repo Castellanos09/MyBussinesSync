@@ -140,7 +140,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     .fillMaxWidth()
                     .padding(10.dp))
 
-            //AGREGA UNA NOTA A LA BD
+            //AGREGA UN SERVICIO A LA BD
             Button(onClick = {
                 serviciosVM.saveNewService(cliente, color, numero, presupuesto, servicio, vehiculo, estado){
                     Toast.makeText(context, "Servicio guardado", Toast.LENGTH_SHORT).show()

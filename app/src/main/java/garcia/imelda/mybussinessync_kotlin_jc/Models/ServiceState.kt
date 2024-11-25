@@ -8,15 +8,16 @@ data class ServiceState(
     val servicio: String = "",
     val vehiculo: String = "",
     val estado: String = "",
-    val adeudos: List<Adeudo> = emptyList(), // Lista de adeudos
+   val adeudos: List<Adeudo> = emptyList(), // Lista de adeudos
     val abonos: List<Abono> = emptyList(),   // Lista de abonos
 
     val idDoc: String = "",
 ){
-    // Modelo para un adeudo
+//     Modelo para un adeudo
     data class Adeudo(
         val descripcion: String = "",
-        val monto: String = ""
+        val monto: String = "",
+        val idDoc: String = ""
     )
 
     // Modelo para un abono

@@ -25,8 +25,9 @@ import garcia.imelda.mybussinessync_kotlin_jc.R
 @Composable
 fun CardAdeudos(
     descripcion: String,
-    monto: Number,
-    onClic: () -> Unit
+    monto: String,
+
+    onClick: () -> Unit
 ){
     Card(
         modifier = Modifier

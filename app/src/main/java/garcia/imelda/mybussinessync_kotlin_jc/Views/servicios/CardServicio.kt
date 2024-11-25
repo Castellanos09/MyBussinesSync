@@ -1,5 +1,7 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
 
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,11 +33,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType.Companion.Uri
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -44,6 +48,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
 import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
 import garcia.imelda.mybussinessync_kotlin_jc.R
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
+import android.net.Uri
 
 @Composable
 
@@ -58,6 +63,7 @@ fun CardServicio(
     navController: NavController,
     idDoc : String, // Identificador único del servicio (necesario para eliminarlo)
     serviciosViewModel: ServiciosViewModel = viewModel(), // Inyectamos el ViewModel
+
     onClick: () -> Unit
 ) {
     // Estado para controlar la visibilidad de la ventana modal
@@ -200,6 +206,8 @@ fun CardServicio(
                 Button(
                     onClick = {
                         //
+
+
                     },
                     modifier = Modifier,
                         //.padding(start = 120.dp, end = 120.dp),
@@ -250,7 +258,8 @@ fun CardServicio(
                 Button(
                     onClick = {
                         // Lógica para ir a "Adeudos"
-                        navController.navigate("Adeudos")
+                        // navController.navigate("Adeudos")
+                        navController.navigate("Adeudo/${idDoc}")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.azulFuerte),

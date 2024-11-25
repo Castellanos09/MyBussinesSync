@@ -12,22 +12,27 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.example.roomcronoapp.components.FloatButton
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
+import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AllAdeudosView(navController: NavController, adeudosVM : AdeudosViewModel){
+fun AllAdeudosView(navController: NavController, adeudosVM : AdeudosViewModel, serviciosVM: ServiciosViewModel, idDoc: String){
     LaunchedEffect(Unit) {
-//        serviciosVM.fetchServices()
+     adeudosVM.fetchAdeudos()
     }
 
     Scaffold (
@@ -54,31 +59,29 @@ fun AllAdeudosView(navController: NavController, adeudosVM : AdeudosViewModel){
         } ,
         floatingActionButton = {
             FloatButton {
-                navController.navigate("AddAdeudo")
+                navController.navigate("AddAdeudo/${idDoc}")
             }
         }
 
     ) {padding ->
         Column(modifier = Modifier.padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally){
-//
-            // Mostrar servicios
-//            val servicios by serviciosVM.servicesData.collectAsState()
 
-            LazyColumn{
-//                items(servicios) { item ->
-//                    CardServicio(
-//                        cliente = item.cliente,
-//                        color = item.color,
-//                        vehiculo = item.vehiculo,
-//                        numero = item.numero,
-//                        presupuesto = item.presupuesto,
-//                        servicio = item.servicio,
-//                        estado = item.estado,
-//                        onClick = {
-//                        }
-//                    )
-//                }
+
+
+//
+            // Mostrar adeudos
+            val adeudos by adeudosVM.adeudosData.collectAsState()
+            LazyColumn {
+                items(adeudos){ item ->
+                    CardAdeudos(
+                        descripcion = item.descripcion, monto = item.monto,
+                        onClick =  {
+                        }
+                    )
+
+            }
+////
             }
 
         }

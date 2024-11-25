@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
+import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState.Adeudo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,64 +21,65 @@ class AdeudosViewModel : ViewModel() {
     private val firestore = Firebase.firestore
 
     //RECUPERA LOS DATOS DEL MODELO "SERVICESTATE"
-    private val _serviceData = MutableStateFlow<List<ServiceState>>(emptyList())
-    val servicesData: StateFlow<List<ServiceState>> = _serviceData
+    private val _adeudosData = MutableStateFlow<List<Adeudo>>(emptyList())
+    val adeudosData: StateFlow<List<Adeudo>> = _adeudosData
 
 
     // Función para guardar un servicio
-    fun saveNewService(
-        cliente: String,
-        color: String,
-        numero: String,
-        presupuesto: String,
-        servicio: String,
-        vehiculo: String,
-        estado: String,
+    fun saveNewAdeudo(
+
+        descripcion: String,
+        monto: String,
+        idDoc: String,
+
+//        total : Number,
+
         onSuccess: () -> Unit
     ) {
         val email = auth.currentUser?.email
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val newService = hashMapOf(
-                    "cliente" to cliente,
-                    "color" to color,
-                    "numero" to numero,
-                    "presupuesto" to presupuesto,
-                    "servicio" to servicio,
-                    "vehiculo" to vehiculo,
-                    "estado" to estado,
+                val newAdeudo= hashMapOf(
+                    "descripcion" to descripcion,
+                    "monto" to monto,
+//                    "total" to total,
+                    "idDoc" to idDoc,
                     "email" to email.toString()
-
                 )
-                firestore.collection("servicios").add(newService)
+                val servicioRef = firestore.collection("servicios").document(idDoc)
+
+                // Guardar el adeudo dentro de la subcolección "adeudos"
+                servicioRef.collection("adeudos").add(newAdeudo)
                     .addOnSuccessListener {
                         onSuccess()
+                    } .addOnFailureListener { e ->
+                        Log.d("ERROR SAVE", "ERROR AL GUARDAR EL ADEUDO ${e.localizedMessage}")
                     }
             } catch (e: Exception) {
-                Log.d("ERROR SAVE", "ERROR AL GUARDAR EL SERVICIO ${e.localizedMessage}")
+                Log.d("ERROR SAVE", "ERROR AL GUARDAR EL ADEUDO ${e.localizedMessage}")
             }
         }
     }
 
     // Traer todos los datos en base al email
-    fun fetchServices() {
+    fun fetchAdeudos() {
         val email = auth.currentUser?.email
-        firestore.collection("servicios")
-            .whereEqualTo("email", email.toString())
+        firestore.collection("adeudos")
+            .whereEqualTo("email", email.toString()  )
             .addSnapshotListener { querySnapshot, error ->
                 if (error != null) {
                     return@addSnapshotListener
                 }
-                val documents = mutableListOf<ServiceState>()
+                val documents = mutableListOf<Adeudo>()
                 if (querySnapshot != null) {
                     for (document in querySnapshot) {
                         //Sacar los campos de FireStore y los documentos
                         val myDocument =
-                            document.toObject(ServiceState::class.java).copy(idDoc = document.id)
+                            document.toObject(Adeudo::class.java).copy(idDoc = document.id)
                         documents.add(myDocument)
                     }
                 }
-                _serviceData.value = documents
+                _adeudosData.value = documents
             }
     }
 

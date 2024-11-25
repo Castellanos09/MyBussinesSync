@@ -1,5 +1,6 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.Adeudos
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -41,12 +42,13 @@ import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 //FALTA AGREGAR PARAMETROS EN LA FUNCION
-fun AddAdeudosView(navController: NavController, adeudosVM: AdeudosViewModel) {
+fun AddAdeudosView(navController: NavController, adeudosVM: AdeudosViewModel, idDoc: String) {
 
 
     //DECLARACION DE VARIABLES
     var descripcion by remember { mutableStateOf("") }
     var monto by remember { mutableStateOf("") }
+
     val context = LocalContext.current
 
 //TOP BAR AZUL EN APP
@@ -83,7 +85,7 @@ fun AddAdeudosView(navController: NavController, adeudosVM: AdeudosViewModel) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
+            Text(text = idDoc)
 
             Spacer(modifier = Modifier.height(70.dp))
 
@@ -112,9 +114,14 @@ fun AddAdeudosView(navController: NavController, adeudosVM: AdeudosViewModel) {
                     .padding(20.dp)
             )
 
-            //BOTON AGREGA UNA NOTA A LA BD
+            //BOTON AGREGA UN ADEUDO A LA BD
             Button(
-                onClick = { },
+                onClick = {
+                    adeudosVM.saveNewAdeudo(descripcion, monto, idDoc){
+                        Toast.makeText(context, "Adeudo Guardado", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 100.dp, end = 100.dp),
