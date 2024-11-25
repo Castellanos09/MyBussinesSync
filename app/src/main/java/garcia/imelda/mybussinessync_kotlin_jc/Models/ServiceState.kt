@@ -25,4 +25,5 @@ data class ServiceState(
         val fecha: String = "", // Cambiar a Timestamp si planeas usar Firebase Timestamp
         val monto: String = ""
     )
+
 }

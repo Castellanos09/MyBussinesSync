@@ -66,7 +66,6 @@ dependencies {
     implementation(libs.firebaseFirestore) //BASE DE DATOS
     implementation(libs.navigation) //NAVEGACION ENTRE PANTALAS
 
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
