@@ -55,11 +55,9 @@ fun CardServicio(
     presupuesto: String,
     servicio: String,
     estado: String,
-    idDoc : String, // Identificador único del servicio (necesario para eliminarlo)
-    onClick: () -> Unit,
-    serviciosViewModel: ServiciosViewModel = viewModel() // Inyectamos el ViewModel
     navController: NavController,
-
+    idDoc : String, // Identificador único del servicio (necesario para eliminarlo)
+    serviciosViewModel: ServiciosViewModel = viewModel(), // Inyectamos el ViewModel
     onClick: () -> Unit
 ) {
     // Estado para controlar la visibilidad de la ventana modal
@@ -334,5 +332,4 @@ fun CardServicio(
         )
     }
 }
-
 
