@@ -1,9 +1,11 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.AdeudosViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.LoginViewModel
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
@@ -14,6 +16,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.TabsView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.Login.checkSesion
 import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.AddServicioView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.AllServicesView
+import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.EditServicioView
 import garcia.imelda.mybussinessync_kotlin_jc.Views.servicios.HomeServicios
 
 @Composable
@@ -32,8 +35,11 @@ fun NavManager(loginVM: LoginViewModel, serviciosVM: ServiciosViewModel, adeudos
         composable( "AddServicio"){
             AddServicioView(navController, serviciosVM)
          }
-        composable("AllServices"){
-            AllServicesView(navController, serviciosVM)
+        composable("EditServicioView/{idDoc}", arguments = listOf(
+            navArgument("idDoc"){ type = NavType.StringType }
+        )){
+            val idDoc = it.arguments?.getString("idDoc") ?: ""
+            EditServicioView(navController, serviciosVM, idDoc = idDoc)
         }
         composable("Adeudos"){
             AllAdeudosView(navController, adeudosVM)

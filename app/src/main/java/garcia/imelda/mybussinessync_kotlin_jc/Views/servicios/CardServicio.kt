@@ -199,7 +199,7 @@ fun CardServicio(
                 //ICONO LLAMADA
                 Button(
                     onClick = {
-                        //
+                        navController.navigate("EditServicioView/${idDoc}")
                     },
                     modifier = Modifier,
                         //.padding(start = 120.dp, end = 120.dp),
@@ -218,7 +218,7 @@ fun CardServicio(
 
                 Button(
                     onClick = {
-                        //
+                        navController.navigate("EditServicioView/${idDoc}")
                     },
                     modifier = Modifier,
                     //.padding(start = 90.dp, end = 90.dp),
