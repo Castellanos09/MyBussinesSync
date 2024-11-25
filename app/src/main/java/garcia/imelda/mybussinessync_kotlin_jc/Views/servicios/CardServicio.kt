@@ -105,7 +105,7 @@ fun CardServicio(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Contacto: ", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(text = "Telefono: ", fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 Text(text = "${numero}", modifier = Modifier.fillMaxWidth(), fontSize = 20.sp)
             }
 

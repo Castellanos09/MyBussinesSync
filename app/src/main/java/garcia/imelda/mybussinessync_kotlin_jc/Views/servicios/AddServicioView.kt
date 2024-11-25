@@ -100,7 +100,8 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
             OutlinedTextField(
                 value = numero,
                 onValueChange = {numero = it},
-                label = { Text(text = "Contacto del cliente")},
+                label = { Text(text = "Celular del cliente")},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), // Teclado específico para decimal
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp))
