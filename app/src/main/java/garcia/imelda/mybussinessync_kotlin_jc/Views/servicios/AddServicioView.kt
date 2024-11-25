@@ -96,7 +96,7 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     .fillMaxWidth()
                     .padding(10.dp))
 
-//INGRESAR UNA DESCRIPCIÓN
+            //INGRESAR UNA DESCRIPCIÓN
             OutlinedTextField(
                 value = numero,
                 onValueChange = {numero = it},
@@ -140,11 +140,17 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     .fillMaxWidth()
                     .padding(10.dp))
 
-            //AGREGA UNA NOTA A LA BD
+            //AGREGA UN SEVICIO NUEVO A LA BD
             Button(onClick = {
-                serviciosVM.saveNewService(cliente, color, numero, presupuesto, servicio, vehiculo, estado){
-                    Toast.makeText(context, "Servicio guardado", Toast.LENGTH_SHORT).show()
-                    navController.popBackStack()
+                // Verificar si algún campo está vacío
+                if (cliente.isBlank() || numero.isBlank() || vehiculo.isBlank() || color.isBlank() || servicio.isBlank() || presupuesto.isBlank()) {
+                    Toast.makeText(context, "Por favor, complete todos los campos vacíos antes de guardar.", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Guardar el servicio si todos los campos están completos
+                    serviciosVM.saveNewService(cliente, color, numero, presupuesto, servicio, vehiculo, estado) {
+                        Toast.makeText(context, "Servicio guardado correctamente", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
                 }
             },
                 modifier = Modifier
