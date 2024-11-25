@@ -8,7 +8,6 @@ data class ServiceState(
     val servicio: String = "",
     val vehiculo: String = "",
     val estado: String = "",
-
     val adeudos: List<Adeudo> = emptyList(), // Lista de adeudos
     val abonos: List<Abono> = emptyList(),   // Lista de abonos
 

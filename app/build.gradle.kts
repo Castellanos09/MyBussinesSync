@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "garcia.imelda.mybussinessync_kotlin_jc"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "garcia.imelda.mybussinessync_kotlin_jc"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

@@ -98,6 +98,7 @@ fun HomeServicios(navController: NavController, serviciosVM: ServiciosViewModel)
                         presupuesto = item.presupuesto,
                         servicio = item.servicio,
                         estado = item.estado,
+                        idDoc = item.idDoc,
                         onClick = {
 
                         }

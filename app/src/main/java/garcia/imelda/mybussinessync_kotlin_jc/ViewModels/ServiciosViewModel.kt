@@ -2,6 +2,7 @@ package garcia.imelda.mybussinessync_kotlin_jc.ViewModels
 
 import android.util.Log
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,8 @@ class ServiciosViewModel: ViewModel() {
     private val _serviceData = MutableStateFlow<List<ServiceState>>(emptyList())
     val servicesData: StateFlow<List<ServiceState>> = _serviceData
 
+    private val _services = mutableStateListOf<ServiceState>() // Reemplaza con tu modelo
+    val services: List<ServiceState> get() = _services
 
     // Función para guardar un servicio
     fun saveNewService(
@@ -49,7 +52,6 @@ class ServiciosViewModel: ViewModel() {
                     "vehiculo" to vehiculo,
                     "estado" to estado,
                     "email" to email.toString()
-
                 )
                 firestore.collection("servicios").add(newService)
                     .addOnSuccessListener {
@@ -82,6 +84,28 @@ class ServiciosViewModel: ViewModel() {
             }
     }
 
+
+    //Función para eliminar servicios
+    fun deleteService(idDoc: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                // Elimina el documento en Firestore basado en el servicioID
+                firestore.collection("servicios").document(idDoc).delete()
+                    .addOnSuccessListener {
+                        // Una vez eliminado de Firestore, también se elimina de la lista local
+                        viewModelScope.launch(Dispatchers.Main) {
+                            _services.removeIf { it.idDoc == idDoc }
+                            Log.d("DELETE", "Servicio eliminado correctamente")
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("DELETE ERROR", "Error al eliminar el servicio: ${e.localizedMessage}")
+                    }
+            } catch (e: Exception) {
+                Log.e("DELETE ERROR", "Error inesperado al eliminar el servicio: ${e.localizedMessage}")
+            }
+        }
+    }
     // Función para cerrar sesión
     fun logOut() {
         auth.signOut()
