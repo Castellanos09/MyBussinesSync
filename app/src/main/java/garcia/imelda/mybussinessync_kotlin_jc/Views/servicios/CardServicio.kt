@@ -1,6 +1,7 @@
 package garcia.imelda.mybussinessync_kotlin_jc.Views.servicios
 
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +50,7 @@ import garcia.imelda.mybussinessync_kotlin_jc.Models.ServiceState
 import garcia.imelda.mybussinessync_kotlin_jc.Navigation.NavManager
 import garcia.imelda.mybussinessync_kotlin_jc.R
 import garcia.imelda.mybussinessync_kotlin_jc.ViewModels.ServiciosViewModel
-import android.net.Uri
+
 
 @Composable
 
@@ -108,7 +109,7 @@ fun CardServicio(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Contacto: ", fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(text = "Telefono: ", fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 Text(text = "${numero}", modifier = Modifier.fillMaxWidth(), fontSize = 20.sp)
             }
 
@@ -205,7 +206,7 @@ fun CardServicio(
                 Button(
                     onClick = {
                         val intent = Intent(Intent.ACTION_DIAL) // Utilizamos ACTION_DIAL para abrir la app de llamadas
-                        intent.data = android.net.Uri.parse("tel:$numero") // Pasamos el número de teléfono
+                        intent.data = Uri.parse("tel:$numero") // Pasamos el número de teléfono
                         navController.context.startActivity(intent) // Iniciamos la actividad
                     },
                     modifier = Modifier,
@@ -276,7 +277,7 @@ fun CardServicio(
                 Button(
                     onClick = {
                         // Lógica para ir a "Adeudos"
-                        navController.navigate("Adeudo/${idDoc}")
+                        navController.navigate("Adeudos")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.azulFuerte),

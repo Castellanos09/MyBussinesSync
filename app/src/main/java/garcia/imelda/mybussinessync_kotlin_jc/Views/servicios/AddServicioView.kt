@@ -96,11 +96,12 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     .fillMaxWidth()
                     .padding(10.dp))
 
-//INGRESAR UNA DESCRIPCIÓN
+            //INGRESAR UNA DESCRIPCIÓN
             OutlinedTextField(
                 value = numero,
                 onValueChange = {numero = it},
-                label = { Text(text = "Contacto del cliente")},
+                label = { Text(text = "Celular del cliente")},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), // Teclado específico para decimal
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp))
@@ -140,11 +141,18 @@ fun AddServicioView(navController: NavController, serviciosVM: ServiciosViewMode
                     .fillMaxWidth()
                     .padding(10.dp))
 
+            //AGREGA UN SEVICIO NUEVO A LA BD
             //AGREGA UN SERVICIO A LA BD
             Button(onClick = {
-                serviciosVM.saveNewService(cliente, color, numero, presupuesto, servicio, vehiculo, estado){
-                    Toast.makeText(context, "Servicio guardado", Toast.LENGTH_SHORT).show()
-                    navController.popBackStack()
+                // Verificar si algún campo está vacío
+                if (cliente.isBlank() || numero.isBlank() || vehiculo.isBlank() || color.isBlank() || servicio.isBlank() || presupuesto.isBlank()) {
+                    Toast.makeText(context, "Por favor, complete todos los campos vacíos antes de guardar.", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Guardar el servicio si todos los campos están completos
+                    serviciosVM.saveNewService(cliente, color, numero, presupuesto, servicio, vehiculo, estado) {
+                        Toast.makeText(context, "Servicio guardado correctamente", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
                 }
             },
                 modifier = Modifier
